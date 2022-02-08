@@ -1,0 +1,50 @@
+<!-- TABLA -->
+<div class="container">
+
+  <div class="style-title"> Lista de restricciones
+  </div>
+
+  <div class="row">
+    <div class="col-12 mt-2 mb-2 text-right ">
+      <button mat-stroked-button color="primary"
+      (click)="addRestriccion()"
+      >
+        <mat-icon >add</mat-icon>Nueva Restricción
+      </button>
+    </div>
+  </div>
+
+
+  <table class="table">
+      <thead class="bg-primary">
+          <tr class="text-color">
+              <th>id</th>
+              <th>Nombre de restricción</th>
+              <th class="text-pais">País</th>
+          </tr>
+      </thead>
+
+      <tbody>
+        <tr [ngClass]="{'newsite-tr': !s.id ,'inactivesite':!s.value}" *ngFor="let s of RestriccionList;let i = index">
+
+              <td *ngIf="!s.id"><div style="display: flex; justify-content: center;">
+                  <button  matTooltip="Eliminar" class="qrbtn c-orange"> <mat-icon class="icon-18">close</mat-icon> </button>
+              </div></td>
+              <td *ngIf="s.id"> {{s.id}} </td>
+              <td *ngIf="s.id"> {{s.name}}</td>
+              <td *ngIf="!s.id">
+                  <input class="input-msite" [(ngModel)]="s.value">
+              </td>
+              <td>
+                  <div style="display: flex; justify-content: center; align-items: center;">
+                      <mat-checkbox class="nomargin" [(ngModel)]="s.value">{{s.value?'Activo':'Inactivo'}}</mat-checkbox>
+                  </div>
+              </td>
+
+          </tr>
+      </tbody>
+
+
+
+  </table>
+</div>

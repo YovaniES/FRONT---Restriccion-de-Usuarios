@@ -1,0 +1,38 @@
+<div class="cli-card fit-card">
+    <div class="cli-card-body">
+      <div class="cli-title-center c-male">Actualización de Posiciones</div>
+
+        <div *ngIf="showing == 1" class="cli-form newvac-wrapper">
+            <div class="nwv-masivemessage">
+                Puedes gestionar el formato haciendo <a href="https://telefonicacorp-my.sharepoint.com/:f:/r/personal/gherson_perez_telefonica_com/Documents/Formato%20de%20Posiciones?csf=1&web=1&e=crXDQg">click aquí</a>
+            </div>
+
+            <!-- EXCEL -->
+            <div class="cli-row">
+                <div class="cli-form-icon">
+                    <mat-icon>upload_file</mat-icon>
+                </div>
+                <div class="cli-form-element col-f-fill">
+                    <label>Formato</label>
+                    <div class="cli-input-file">
+                        <div *ngIf="excelname!=''" class="cli-input-file-name">
+                            <mat-icon class="icon-18" style="margin-right: 5px;">description</mat-icon>
+                            <div class="flex-1">{{excelname}}</div>
+                            <button (click)="clearexcel()" class="icon-btn btn-trans c-female"> <mat-icon class="icon-18">close</mat-icon> </button>
+                        </div>
+                        <div class="flex-1" *ngIf="excelname==''"></div>
+                        <button  class="cli-btn btn-s btn-green">Cargar archivo</button>
+                        <input  type="file" accept=".xlsm" style="display: none;">
+                    </div>
+                </div>
+            </div>
+            <!-- BOTTONES -->
+            <div class="cli-form-buttons">
+                <button (click)="clearexcel()" class="cli-btn btn-l btn-grey">Limpiar</button>
+                <button (click)="uploadFile()" class="cli-btn btn-l btn-blue">Registrar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
