@@ -1,5 +1,4 @@
 export interface Restriccion {
-  id: number;
   name: string;
   description: string;
   value: boolean;

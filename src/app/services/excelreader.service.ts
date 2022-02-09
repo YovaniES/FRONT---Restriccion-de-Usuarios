@@ -8,7 +8,18 @@ import * as XLSX from 'xlsx';
 })
 export class ExcelreaderService {
 
+
   constructor() { }
+
+
+  exportData(dataExport: any[], name:string) {
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(dataExport);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, '');
+    XLSX
+      .writeFile(wb, name);
+  }
+
 
   read(input_value: File[], page:number=0):Observable<exceldata> {
     // Validar input

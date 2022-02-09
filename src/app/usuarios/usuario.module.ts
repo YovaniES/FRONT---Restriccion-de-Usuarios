@@ -72,6 +72,7 @@ import { UpdatePositionComponent } from './update-position/update-position.compo
     MatFormFieldModule,
     MatCheckboxModule,
   ],
+  entryComponents: [crearRestriccionComponent],
 
 })
 export class UsuarioModule {}

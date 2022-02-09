@@ -6,12 +6,10 @@ import { Restriccion } from '../interfaces/restriccion';
 })
 export class RestriccionService {
   _restricList: Restriccion[] = [
-    { id: 1,
-      name: 'Realizó las clases',
+    { name: 'Realizó las clases',
       description: 'No tuvo el horario establecido',
       value: true },
     {
-      id: 2,
       name: 'Tiene las 2 dosís de vacuna',
       description: 'Temas personales',
       value: false,
@@ -21,7 +19,6 @@ export class RestriccionService {
   constructor() {}
 
   addRestriccion(restric: Restriccion) {
-    restric.id = this._restricList.length + 1;
     this._restricList.push(restric);
   }
 

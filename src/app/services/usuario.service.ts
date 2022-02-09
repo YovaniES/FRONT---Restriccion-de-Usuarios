@@ -7,16 +7,16 @@ import { ListUsuario } from '../interfaces/usuario';
 export class UsuarioService {
 
   listUsuarios: ListUsuario[] = [
-    {id: '111111', nombre:'Kalen Valle',         restriccion: false, restriccion2:'SI', cumplio:false},
-    {id: '222222', nombre:'Belinda Valle',       restriccion: false, restriccion2:'SI', cumplio:false},
-    {id: '333333', nombre:'Jane Medina',         restriccion: false, restriccion2:'SI', cumplio:false},
-    {id: '444444', nombre:'Andrea Cameron B.',   restriccion: false, restriccion2:'SI', cumplio:false},
-    {id: '555555', nombre:'Mary Torres',         restriccion: false, restriccion2:'SI', cumplio:false},
-    {id: '666666', nombre:'Kim Calderon',        restriccion: true,  restriccion2:'SI', cumplio:false},
-    {id: '777777', nombre:'Jane Medina',         restriccion: false, restriccion2:'SI', cumplio:false},
-    {id: '888888', nombre:'Andrea Tapia B.',     restriccion: false, restriccion2:'SI', cumplio:false},
-    {id: '999999', nombre:'Bruno Angeles B.',    restriccion: false, restriccion2:'SI', cumplio:false},
-    {id: '101010',nombre:'Camila Cameron B.',    restriccion: true, restriccion2:'SI', cumplio:false},
+    {idrestriction:1,  idssff: '111111', value:false},
+    {idrestriction:2,  idssff: '222222', value:false},
+    {idrestriction:3,  idssff: '333333', value:false},
+    {idrestriction:4,  idssff: '444444', value:false},
+    {idrestriction:5,  idssff: '555555', value:false},
+    {idrestriction:6,  idssff: '666666', value:true},
+    {idrestriction:7,  idssff: '777777', value:false},
+    {idrestriction:8,  idssff: '888888', value:false},
+    {idrestriction:9,  idssff: '999999', value:true},
+    {idrestriction:10, idssff: '101010', value:false},
   ];
 
 

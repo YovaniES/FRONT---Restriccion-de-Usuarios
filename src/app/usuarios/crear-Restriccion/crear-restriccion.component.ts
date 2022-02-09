@@ -25,11 +25,17 @@ export class crearRestriccionComponent implements OnInit {
 
   ngOnInit() {
     this._restriccionForm = this.fb.group({
-      ID:         [ this.data.ID],
-      nombre:     [ this.data.nombre, [Validators.required]],
-      descripcion:[ this.data.descripcion],
+      name:     [ this.data.name, [Validators.required]],
+      description:[ this.data.description],
+      value:[ this.data.value],
+
     });
   }
+
+  saveRestriction(){
+    console.log(this._restriccionForm.value)
+  }
+
 
   onSubmit() {
     if (isNaN(this.data.ID)) {

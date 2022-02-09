@@ -14,12 +14,13 @@
             >Nombre de la restricción:</label
           >
           <input type="text" class="form-control"
-                 formControlName="nombre" />
+                 formControlName="name" />
         </div>
 
         <div class="form-group">
           <label for="exampleFormControlSelect1">Seleccione:</label>
-          <select class="form-control">
+          <select class="form-control"
+                  formControlName="value">
             <option>NO</option>
             <option>SI</option>
           </select>
@@ -32,7 +33,7 @@
           <textarea
             class="form-control"
             rows="4"
-            formControlName="descripcion"
+            formControlName="description"
           ></textarea>
         </div>
       </mat-form-field>
@@ -40,7 +41,9 @@
       <!-- Boton guardar en el Modal -->
       <div class="row">
         <div class="col-12 text-right">
-          <button mat-raised-button color="accent">
+          <button mat-raised-button
+                  color="accent"
+                  (click)="saveRestriction()">
             <mat-icon>save</mat-icon> Guardar
           </button>
         </div>

@@ -18,7 +18,6 @@ import { crearRestriccionComponent } from './usuarios/crear-Restriccion/crear-re
     BrowserAnimationsModule,
   ],
   providers: [RestriccionService],
-  entryComponents: [crearRestriccionComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

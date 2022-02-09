@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ListUsuario } from 'src/app/interfaces/usuario';
+import { ExcelreaderService } from 'src/app/services/excelreader.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -14,21 +15,21 @@ export class UsuariosComponent implements OnInit {
   @ViewChild('excelfile') excelinputfile!: ElementRef;
   file!: File;
 
-  excelname = '';
+/*   excelname = '';
 
   clearexcel() {
     this.file != null;
     this.excelname = '';
     this.excelinputfile.nativeElement.value = '';
-  }
+  } */
+
 
   listUsuario: ListUsuario[] = [];
+
   displayedColumns: string[] = [
-    'id',
-    'nombre',
-    'restriccion',
-    'restriccion2',
-    'cumplio',
+    'idrestriction',
+    'idssff',
+    'value',
   ];
 
   dataSource!: MatTableDataSource<any>;
@@ -36,11 +37,19 @@ export class UsuariosComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private usuarioServices: UsuarioService) {}
+  constructor(private usuarioServices: UsuarioService,
+              private excelreaderService: ExcelreaderService) {}
 
   ngOnInit(): void {
     this.cargarUsuarios();
   }
+
+
+  exportData(){
+    this.excelreaderService.exportData(this.listUsuario, 'usarios.xls')
+
+  }
+
 
   cargarUsuarios() {
     this.listUsuario = this.usuarioServices.getUsuarios();
