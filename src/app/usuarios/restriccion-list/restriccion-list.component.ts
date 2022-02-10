@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { Restriccion } from 'src/app/interfaces/restriccion';
-import { RestriccionService } from 'src/app/services/restriccion.service';
+import { Restriction } from 'src/app/interfaces/restriction';
+import { RestrictionService } from 'src/app/services/restriction.service';
 import { crearRestriccionComponent } from '../crear-Restriccion/crear-restriccion.component';
 
 @Component({
@@ -12,45 +12,41 @@ import { crearRestriccionComponent } from '../crear-Restriccion/crear-restriccio
 })
 export class RestriccionListComponent implements OnInit {
   isPopupOpened = true;
-  listRestric: Restriccion[] = [];
-  @ViewChild("excelfile") excelinputfile!:ElementRef;
+  listRestric: Restriction[] = [];
+  @ViewChild('excelfile') excelinputfile!: ElementRef;
 
-
-  file!:File
+  file!: File;
 
   dataSource!: MatTableDataSource<any>;
 
   constructor(
-    private restriccionService:RestriccionService,
+    private restrictionService: RestrictionService,
     private dialog: MatDialog,
-    private _restriccionService: RestriccionService
   ) {}
-
-
 
   ngOnInit() {
     this.cargarRestric();
   }
-  excelname="";
+  excelname = '';
 
 
-  clearexcel(){
-    this.file!=null;
-    this.excelname="";
-    this.excelinputfile.nativeElement.value = "";
 
+  clearexcel() {
+    this.file != null;
+    this.excelname = '';
+    this.excelinputfile.nativeElement.value = '';
   }
 
-
   get RestriccionList() {
-    return this._restriccionService.getAllRestrictions();
+    return this.restrictionService.getAllRestrictions();
   }
 
   cargarRestric() {
-    this.listRestric = this.restriccionService.getRestrictiones();
+    this.listRestric = this.restrictionService.getRestrictiones();
     this.dataSource = new MatTableDataSource(this.listRestric);
-  }
 
+    console.log(this.listRestric);
+  }
 
   addRestriccion() {
     this.isPopupOpened = true;
@@ -62,5 +58,4 @@ export class RestriccionListComponent implements OnInit {
       this.isPopupOpened = false;
     });
   }
-
 }

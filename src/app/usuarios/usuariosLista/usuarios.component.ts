@@ -2,8 +2,13 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Restriction } from 'src/app/interfaces/restriction';
 import { ListUsuario } from 'src/app/interfaces/usuario';
-import { ExcelreaderService } from 'src/app/services/excelreader.service';
+import {
+  exceldata,
+  ExcelreaderService,
+} from 'src/app/services/excelreader.service';
+import { RestrictionService } from 'src/app/services/restriction.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
@@ -13,43 +18,89 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class UsuariosComponent implements OnInit {
   @ViewChild('excelfile') excelinputfile!: ElementRef;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild('excelfile2') excelinputfile2!: ElementRef;
+
+  listRestric: Restriction[] = [];
+  listUsuario: ListUsuario[] = [];
+
+  displayedColumns: string[] = ['idrestriction', 'idssff', 'value'];
+
+  dataSource!: MatTableDataSource<any>;
+
+  excelname2 = '';
+  exceldata: exceldata = {
+    data: [],
+    headers: [],
+  };
+
   file!: File;
 
-/*   excelname = '';
+  index: number = 0;
+  excelname = '';
+  fileValue = null;
+
+  constructor(
+    private usuarioServices: UsuarioService,
+    private excel: ExcelreaderService,
+    private restrictionService: RestrictionService
+  ) {}
 
   clearexcel() {
     this.file != null;
     this.excelname = '';
     this.excelinputfile.nativeElement.value = '';
-  } */
+  }
 
+  clearExcel2() {
+    this.excelname2 = '';
+    this.excelinputfile2.nativeElement.value = '';
+  }
 
-  listUsuario: ListUsuario[] = [];
+  onExcelDown(event: any, index: number) {
+    this.index = index;
 
-  displayedColumns: string[] = [
-    'idrestriction',
-    'idssff',
-    'value',
-  ];
+    if (event) {
+      console.log(event);
+      this.excelname2 = event.files[0].name;
+      this.excel.read(event.files).subscribe(
+        (resp) => {
+          //this.blockUI.stop();
+          console.log(resp);
+          this.exceldata = resp;
+          this.updateRestriction(this.exceldata.data);
+          this.fileValue = null;
+        }
+      );
+    }
+  }
 
-  dataSource!: MatTableDataSource<any>;
+  updateRestriction(userList: ListUsuario[]) {
+    userList.forEach((user) => {
+      const index = this.listUsuario.findIndex(
+        (u) => u.idssff == user.idssff
+      );
+      console.log(index);
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-
-  constructor(private usuarioServices: UsuarioService,
-              private excelreaderService: ExcelreaderService) {}
+      if (index >= 0) {
+        this.listUsuario[index].value = user.value == 'activo' ? true : false;
+      }
+      console.log(this.listUsuario);
+    });
+  }
 
   ngOnInit(): void {
     this.cargarUsuarios();
   }
 
-
-  exportData(){
-    this.excelreaderService.exportData(this.listUsuario, 'usarios.xls')
-
+  get RestriccionList() {
+    return this.restrictionService.getAllRestrictions();
   }
 
+  cargarRestric() {
+    this.listRestric = this.restrictionService.getRestrictiones();
+  }
 
   cargarUsuarios() {
     this.listUsuario = this.usuarioServices.getUsuarios();
@@ -64,5 +115,9 @@ export class UsuariosComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  saveUsers() {
+    console.log(this.listUsuario);
   }
 }

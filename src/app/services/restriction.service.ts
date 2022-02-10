@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Restriccion } from '../interfaces/restriccion';
+import { Restriction } from '../interfaces/restriction';
 
 @Injectable({
   providedIn: 'root',
 })
-export class RestriccionService {
-  _restricList: Restriccion[] = [
-    { name: 'Realizó las clases',
+export class RestrictionService {
+  restricList: Restriction[] = [
+    { name: 'Realizó las clases actualización',
       description: 'No tuvo el horario establecido',
       value: true },
     {
@@ -18,15 +18,15 @@ export class RestriccionService {
 
   constructor() {}
 
-  addRestriccion(restric: Restriccion) {
-    this._restricList.push(restric);
+  addRestriction(restric: Restriction) {
+    this.restricList.push(restric);
   }
 
   getAllRestrictions() {
-    return this._restricList;
+    return this.restricList;
   }
 
   getRestrictiones() {
-    return this._restricList.slice();
+    return this.restricList.slice();
   }
 }

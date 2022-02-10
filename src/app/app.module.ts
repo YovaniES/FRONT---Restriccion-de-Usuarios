@@ -5,8 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UsuarioModule } from './usuarios/usuario.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RestriccionService } from './services/restriccion.service';
-import { crearRestriccionComponent } from './usuarios/crear-Restriccion/crear-restriccion.component';
+import { RestrictionService } from './services/restriction.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +16,7 @@ import { crearRestriccionComponent } from './usuarios/crear-Restriccion/crear-re
     UsuarioModule,
     BrowserAnimationsModule,
   ],
-  providers: [RestriccionService],
+  providers: [RestrictionService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

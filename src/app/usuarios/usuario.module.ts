@@ -8,7 +8,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { UsuariosComponent } from './usuariosLista/usuarios.component';
 import { RouterModule } from '@angular/router';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -19,7 +18,6 @@ import { crearRestriccionComponent } from './crear-Restriccion/crear-restriccion
 import { RestriccionListComponent } from './restriccion-list/restriccion-list.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { UpdatePositionComponent } from './update-position/update-position.component';
 
 
 @NgModule({
@@ -27,7 +25,6 @@ import { UpdatePositionComponent } from './update-position/update-position.compo
     UsuariosComponent,
     crearRestriccionComponent,
     RestriccionListComponent,
-    UpdatePositionComponent
   ],
 
   imports: [
@@ -37,12 +34,10 @@ import { UpdatePositionComponent } from './update-position/update-position.compo
     ReactiveFormsModule,
     FormsModule,
 
-
     //Angular material
     MatIconModule,
     MatTableModule,
     MatInputModule,
-    MatToolbarModule,
     MatButtonModule,
     MatPaginatorModule,
     MatSortModule,
@@ -56,7 +51,6 @@ import { UpdatePositionComponent } from './update-position/update-position.compo
     UsuariosComponent,
     crearRestriccionComponent,
     RestriccionListComponent,
-    UpdatePositionComponent,
 
     RouterModule,
     FormsModule,
@@ -65,7 +59,6 @@ import { UpdatePositionComponent } from './update-position/update-position.compo
     MatIconModule,
     MatTableModule,
     MatInputModule,
-    MatToolbarModule,
     MatButtonModule,
     MatPaginatorModule,
     MatSortModule,

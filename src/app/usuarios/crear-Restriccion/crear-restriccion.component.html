@@ -1,7 +1,7 @@
 <!-- Modal Nueva resticción -->
 <mat-card-content>
   <div class="container">
-    <form [formGroup]="_restriccionForm" (submit)="onSubmit()">
+    <form [formGroup]="restriccionForm" (submit)="onSubmit()">
       <div (click)="onNoClick()">
         <mat-icon class="cursor-pointer clear-btn">clear</mat-icon>
       </div>
@@ -21,8 +21,7 @@
           <label for="exampleFormControlSelect1">Seleccione:</label>
           <select class="form-control"
                   formControlName="value">
-            <option>NO</option>
-            <option>SI</option>
+            <option *ngFor="let option of options" [value]="option.value">{{option.text}}</option>
           </select>
         </div>
       </mat-form-field>

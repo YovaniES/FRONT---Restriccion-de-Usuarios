@@ -28,12 +28,10 @@
         <td>{{ restriction.name }}</td>
 
         <td>
-          <div
-            style="display: flex; justify-content: center; align-items: center"
+          <div class="check-restric"
           >
-            <mat-checkbox class="nomargin" [(ngModel)]="restriction.value">{{
-              restriction.value ? "Activo" : "Inactivo"
-            }}</mat-checkbox>
+            <mat-checkbox [(ngModel)]="restriction.value">
+              {{restriction.value ? "SI" : "NO"}}</mat-checkbox>
           </div>
         </td>
       </tr>
