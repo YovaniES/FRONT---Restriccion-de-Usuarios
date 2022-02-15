@@ -22,11 +22,8 @@ export class RestrictionService {
     this.restricList.push(restric);
   }
 
-  getAllRestrictions() {
+  getAllRestrictions(): Restriction[] {
     return this.restricList;
   }
 
-  getRestrictiones() {
-    return this.restricList.slice();
-  }
-}
+ }

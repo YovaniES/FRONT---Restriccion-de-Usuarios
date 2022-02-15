@@ -1,8 +1,8 @@
-export interface ListUsuario {
+export interface ListUser {
   idssff: string;
   name: string;
   value: any;
-  restriction: UserRestriction[];
+  restrictions: UserRestriction[];
 }
 
 export interface UserRestriction {

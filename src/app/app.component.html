@@ -1,8 +1,6 @@
-<br>
 <app-usuarios></app-usuarios>
+
 <br>
-<app-restriccion-list></app-restriccion-list>
-
-<br><br>
-
-<!--  <app-update-position></app-update-position> -->
+<app-restriccion-list
+               (newRestriction)="newRestriction($event)"
+></app-restriccion-list>

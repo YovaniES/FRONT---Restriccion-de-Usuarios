@@ -10,31 +10,33 @@
     </div>
   </div>
 
-  <table class="table">
-    <thead class="bg-primary">
-      <tr class="text-color">
-        <th>id</th>
-        <th>Nombre de restricción</th>
-        <th class="text-pais">País</th>
-      </tr>
-    </thead>
+  <div class="container-table">
+    <table class="table">
+      <thead class="bg-primary">
+        <tr class="text-color">
+          <th>id</th>
+          <th>Nombre de restricción</th>
+          <th class="text-pais">País</th>
+        </tr>
+      </thead>
 
-    <tbody>
-      <tr
-        [ngClass]="{ 'newsite-tr': !i, inactivesite: !restriction.value }"
-        *ngFor="let restriction of RestriccionList; let i = index"
-      >
-        <td>{{ i + 1 }}</td>
-        <td>{{ restriction.name }}</td>
+      <tbody>
+        <tr
+          [ngClass]="{ 'newsite-tr': !i, inactivesite: !restriction.value }"
+          *ngFor="let restriction of RestriccionList; let i = index"
+        >
+          <td>{{ i + 1 }}</td>
+          <td>{{ restriction.name }}</td>
 
-        <td>
-          <div class="check-restric"
-          >
-            <mat-checkbox [(ngModel)]="restriction.value">
-              {{restriction.value ? "SI" : "NO"}}</mat-checkbox>
-          </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+          <td>
+            <div class="check-restric"
+            >
+              <mat-checkbox [(ngModel)]="restriction.value">
+                {{restriction.value ? "SI" : "NO"}}</mat-checkbox>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

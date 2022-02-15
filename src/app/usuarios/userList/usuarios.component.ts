@@ -1,15 +1,16 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Restriction } from 'src/app/interfaces/restriction';
-import { ListUsuario } from 'src/app/interfaces/usuario';
+import { ListUser } from 'src/app/interfaces/user';
 import {
   exceldata,
   ExcelreaderService,
 } from 'src/app/services/excelreader.service';
 import { RestrictionService } from 'src/app/services/restriction.service';
-import { UsuarioService } from 'src/app/services/usuario.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -22,8 +23,8 @@ export class UsuariosComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('excelfile2') excelinputfile2!: ElementRef;
 
-  listRestric: Restriction[] = [];
-  listUsuario: ListUsuario[] = [];
+  listUsuario: ListUser[] = [];
+  restrictionList: Restriction[] = [];
 
   displayedColumns: string[] = ['idrestriction', 'idssff', 'value'];
 
@@ -39,13 +40,18 @@ export class UsuariosComponent implements OnInit {
 
   index: number = 0;
   excelname = '';
-  fileValue = null;
+  fileValue: FormControl = new FormControl();
 
   constructor(
-    private usuarioServices: UsuarioService,
+    private userService: UserService,
     private excel: ExcelreaderService,
     private restrictionService: RestrictionService
   ) {}
+
+  ngOnInit(): void {
+    this.cargarUsuarios();
+    this.getRestriccionList();
+  }
 
   clearexcel() {
     this.file != null;
@@ -62,49 +68,52 @@ export class UsuariosComponent implements OnInit {
     this.index = index;
 
     if (event) {
-      console.log(event);
       this.excelname2 = event.files[0].name;
-      this.excel.read(event.files).subscribe(
-        (resp) => {
-          //this.blockUI.stop();
-          console.log(resp);
-          this.exceldata = resp;
-          this.updateRestriction(this.exceldata.data);
-          this.fileValue = null;
-        }
-      );
+      this.excel.read(event.files).subscribe((resp) => {
+        this.exceldata = resp;
+        this.updateRestriction(this.exceldata.data);
+        this.fileValue.setValue(null);
+      });
     }
   }
 
-  updateRestriction(userList: ListUsuario[]) {
+  updateRestriction(userList: any[]) {
     userList.forEach((user) => {
-      const index = this.listUsuario.findIndex(
-        (u) => u.idssff == user.idssff
-      );
-      console.log(index);
+      const index = this.findUserIndex(user);
+      const indexRestriction = this.findRestriction(index, user);
 
-      if (index >= 0) {
-        this.listUsuario[index].value = user.value == 'activo' ? true : false;
-      }
-      console.log(this.listUsuario);
+      if (index >= 0 && indexRestriction >= 0) {
+        this.listUsuario[index].restrictions[indexRestriction].value =
+          user.value == 'activo' ? true : false;
+          this.onChangeRestriction(index);
+        }
+
     });
   }
 
-  ngOnInit(): void {
-    this.cargarUsuarios();
+  findUserIndex(user:any):number{
+    return this.listUsuario.findIndex((u) => u.idssff == user.idssff)
   }
 
-  get RestriccionList() {
-    return this.restrictionService.getAllRestrictions();
+  findRestriction(index: number, user: any) {
+    return this.listUsuario[index].restrictions.findIndex(
+      (restriction) => restriction.idRestriction == user.idRestriction );
   }
 
-  cargarRestric() {
-    this.listRestric = this.restrictionService.getRestrictiones();
+  getRestriccionList() {
+    this.restrictionList = this.restrictionService.getAllRestrictions();
   }
 
   cargarUsuarios() {
-    this.listUsuario = this.usuarioServices.getUsuarios();
+    this.listUsuario = this.userService.getUsuarios();
+    this.mapRestrictions();
     this.dataSource = new MatTableDataSource(this.listUsuario);
+  }
+
+  mapRestrictions() {
+    this.listUsuario.map((user, index) => {
+      user.value = this.findFalseRestriction(index);
+    });
   }
 
   ngAfterViewInit() {
@@ -120,4 +129,17 @@ export class UsuariosComponent implements OnInit {
   saveUsers() {
     console.log(this.listUsuario);
   }
+
+  onChangeRestriction(i: number) {
+    this.listUsuario[i].value = this.findFalseRestriction(i);
+  }
+
+  findFalseRestriction(i: number): boolean {
+    const hasAFalse = this.listUsuario[i].restrictions.find(
+      (restriction) => !restriction.value
+    );
+    return hasAFalse ? false : true;
+  }
+
+  doPageChangeDetail() {}
 }

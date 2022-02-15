@@ -1,9 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Restriction } from 'src/app/interfaces/restriction';
 import { RestrictionService } from 'src/app/services/restriction.service';
-import { crearRestriccionComponent } from '../crear-Restriccion/crear-restriccion.component';
+import { crearRestriccionComponent } from '../create-Restriction/crear-restriccion.component';
 
 @Component({
   selector: 'app-restriccion-list',
@@ -13,9 +13,12 @@ import { crearRestriccionComponent } from '../crear-Restriccion/crear-restriccio
 export class RestriccionListComponent implements OnInit {
   isPopupOpened = true;
   listRestric: Restriction[] = [];
+  @Output() newRestriction = new EventEmitter<any>();
+
   @ViewChild('excelfile') excelinputfile!: ElementRef;
 
   file!: File;
+  excelname = '';
 
   dataSource!: MatTableDataSource<any>;
 
@@ -27,9 +30,6 @@ export class RestriccionListComponent implements OnInit {
   ngOnInit() {
     this.cargarRestric();
   }
-  excelname = '';
-
-
 
   clearexcel() {
     this.file != null;
@@ -42,7 +42,7 @@ export class RestriccionListComponent implements OnInit {
   }
 
   cargarRestric() {
-    this.listRestric = this.restrictionService.getRestrictiones();
+    this.listRestric = this.restrictionService.getAllRestrictions();
     this.dataSource = new MatTableDataSource(this.listRestric);
 
     console.log(this.listRestric);
@@ -55,6 +55,10 @@ export class RestriccionListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
+      console.log(result)
+      if (result) {
+        this.newRestriction.emit(result);
+      }
       this.isPopupOpened = false;
     });
   }

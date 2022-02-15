@@ -6,10 +6,9 @@ import { RestrictionService } from 'src/app/services/restriction.service';
 @Component({
   selector: 'app-crear-restriccion',
   templateUrl: './crear-restriccion.component.html',
-  styleUrls: ['./crear-restriccion.component.scss']
+  styleUrls: ['./crear-restriccion.component.scss'],
 })
 export class crearRestriccionComponent implements OnInit {
-
   public restriccionForm!: FormGroup;
 
   options = [
@@ -17,43 +16,41 @@ export class crearRestriccionComponent implements OnInit {
     { value: false, text: 'NO' },
   ];
 
+  constructor(
+    private fb: FormBuilder,
+    private dialogRef: MatDialogRef<crearRestriccionComponent>,
+    private restrictionService: RestrictionService,
 
-  constructor(private fb: FormBuilder,
-              private dialogRef: MatDialogRef<crearRestriccionComponent>,
-              private restrictionService: RestrictionService,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {}
 
-              @Inject(MAT_DIALOG_DATA) public data: any) { }
+  onNoClick(formValue?:any): void {
+    this.dialogRef.close(formValue);
 
-
-
-  onNoClick(): void {
-    this.dialogRef.close();
-   }
+  }
 
   ngOnInit() {
     this.restriccionForm = this.fb.group({
-      name:       [ this.data.name, [Validators.required]],
-      description:[ this.data.description],
+      name: [this.data.name, [Validators.required]],
+      description: [this.data.description],
       value: [],
-
     });
   }
 
-  saveRestriction(){
-    console.log(this.restriccionForm.value)
+  saveRestriction() {
+    console.log(this.restriccionForm.value);
   }
-
 
   onSubmit() {
     if (isNaN(this.data.ID)) {
-      const body = {...this.restriccionForm.value}
+      const body = { ...this.restriccionForm.value };
 
-      body.value = body.value === 'true'? true :false
+      body.value = body.value === 'true' ? true : false;
 
       this.restrictionService.addRestriction(body);
-      this.dialogRef.close();
+      this.onNoClick(body);
     } else {
-      this.dialogRef.close();
+      this.onNoClick();
     }
   }
 }

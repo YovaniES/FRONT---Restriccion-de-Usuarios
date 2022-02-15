@@ -1,0 +1,97 @@
+<div class="style-title">Restricción de usuarios</div>
+<mat-card-content>
+ <!--  <div class="form-group text-right">
+    <mat-icon class="searcher-btn">search</mat-icon>
+    <input
+      type="text"
+      (keyup)="applyFilter($event)"
+      placeholder="Buscar por usuario"
+    />
+  </div> -->
+
+  <div class="container-table ">
+    <table class="table">
+      <thead class="bg-primary">
+        <tr class="text-color">
+          <th>IDSSFF</th>
+          <th>Nombre</th>
+          <th
+            class="text-center"
+            *ngFor="let restriction of restrictionList; let i = index"
+          >
+            {{ restriction.name }}
+
+            <div class="form-group user-btn">
+              <!-- EXCEL -->
+              <div class="form-group">
+                <ng-container *ngIf="i == index">
+                  <div class="text-file" *ngIf="excelname2 != ''">
+                    <div>{{ excelname2 }}</div>
+                    <button
+                      (click)="clearExcel2()"
+                      class="btn btn-danger btn-sm mb-2"
+                    >
+                      <mat-icon class="close-file">close</mat-icon>
+                    </button>
+                  </div>
+                  <div *ngIf="excelname2 == ''"></div>
+                </ng-container>
+
+                <button
+                  class="btn btn-success btn-sm mr-1"
+                  (click)="excelfile2.click()"
+                >
+                  Carg arch.
+                  <mat-icon class="center-btn">upload_file</mat-icon>
+                </button>
+                <input
+                  #excelfile2
+                  (change)="onExcelDown($event.target, i)"
+                  type="file"
+                  accept=".xlsx, .xls"
+                  style="display: none"
+                  [formControl]="fileValue"
+                />
+
+                <button
+                  type="button"
+                  class="btn btn-secondary btn-sm"
+                  (click)="saveUsers()"
+                >
+                  <mat-icon class="center-btn">save</mat-icon>
+                  Guardar
+                </button>
+              </div>
+            </div>
+          </th>
+
+          <th class="text-center">Cumple las condiciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr
+          [ngClass]="{ 'newsite-tr': !user.idssff, inactivesite: !user.value }"
+          *ngFor="let user of listUsuario; let i = index"
+        >
+          <td>{{ user.idssff }}</td>
+          <td>{{ user.name }}</td>
+
+          <td *ngFor="let restriction of user.restrictions let j = index">
+            <div class="check-restric">
+              <mat-checkbox  (change)= "onChangeRestriction(i)" [(ngModel)]="restriction.value">{{
+                restriction.value ? "SI" : "NO"
+              }}</mat-checkbox>
+            </div>
+          </td>
+
+          <td style="text-align: center; color: blue;" >
+          {{user.value ? "SI" : "NO"}}
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</mat-card-content>

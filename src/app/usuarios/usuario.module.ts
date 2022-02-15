@@ -8,16 +8,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { UsuariosComponent } from './usuariosLista/usuarios.component';
+import { UsuariosComponent } from './userList/usuarios.component';
 import { RouterModule } from '@angular/router';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
-import { crearRestriccionComponent } from './crear-Restriccion/crear-restriccion.component';
 import { RestriccionListComponent } from './restriccion-list/restriccion-list.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { crearRestriccionComponent } from './create-Restriction/crear-restriccion.component';
 
 
 @NgModule({
